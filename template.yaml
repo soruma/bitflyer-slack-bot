@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  bitflyer-slack-bot
+
+  A bot that posts BitFlyer transaction information to Slack.
+
+Parameters:
+  SlackAPIKey:
+    Type: String
+    Default: xoxb-dummy-api-key
+  SlackTargetChannel:
+    Type: String
+    Default: sandbox
+
+Resources:
+  BitflyerBotStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: statemachine/bitflyer_bot.asl.json
+      DefinitionSubstitutions:
+        BitflyerTickerFunctionArn: !GetAtt BitflyerTickerFunction.Arn
+        SNSTopicArn: !Ref SNSTopic
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName: !Ref BitflyerTickerFunction
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt SNSTopic.TopicName
+
+  BitflyerTickerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/bitflyer_ticker/
+      Handler: app.BitflyerTicker::App.lambda_handler
+      Runtime: ruby2.7
+      Timeout: 50
+
+  SlackPostMessageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/slack_post_message/
+      Handler: app.SlackPostMessage::App.lambda_handler
+      Runtime: ruby2.7
+      Environment:
+        Variables:
+          SLACK_API_TOKEN: !Ref SlackAPIKey
+          SLACK_TARGET_CHANNEL: !Ref SlackTargetChannel
+
+  LambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt SlackPostMessageFunction.Arn
+      Principal: sns.amazonaws.com
+      SourceArn: !Ref SNSTopic
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    DependsOn: SlackPostMessageFunction
+    Properties:
+      Subscription:
+        - Endpoint: !GetAtt SlackPostMessageFunction.Arn
+          Protocol: lambda

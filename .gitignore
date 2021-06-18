@@ -1,0 +1,6 @@
+# Ignore temp files
+.aws-sam/
+
+# Ignore environment data
+env.json
+samconfig.toml

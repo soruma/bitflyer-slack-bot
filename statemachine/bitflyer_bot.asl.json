@@ -1,0 +1,22 @@
+{
+  "Comment": "This is your state machine",
+  "StartAt": "Get BTC/JPY rate",
+  "States": {
+    "Get BTC/JPY rate": {
+      "Type": "Task",
+      "Resource": "${BitflyerTickerFunctionArn}",
+      "Next": "SNS Publish"
+    },
+    "SNS Publish": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "Message": {
+          "Input.$": "$"
+        },
+        "TopicArn": "${SNSTopicArn}"
+      },
+      "End": true
+    }
+  }
+}

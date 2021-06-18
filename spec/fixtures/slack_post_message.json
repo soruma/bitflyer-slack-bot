@@ -1,0 +1,22 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:region:999:bitflyer-slack-bot-SNSTopic-XXXX:XXXXX",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "xxxx-xxxxx",
+        "TopicArn": "arn:aws:sns:region:999:bitflyer-slack-bot-SNSTopic-XXXX",
+        "Subject": "",
+        "Message": "{\"Input\":{\"statusCode\":200,\"message\":\"BTC_JPY: 3919359.0\\n\"}}",
+        "Timestamp": "2021-06-20T07:38:26.845Z",
+        "SignatureVersion": "1",
+        "Signature": "dummy-Signature",
+        "SigningCertUrl": "https://sns.region.amazonaws.com/SimpleNotificationService-xxxx.pem",
+        "UnsubscribeUrl": "https://sns.region.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:region:XXXX:bitflyer-slack-bot-SNSTopic-XXXX:XXXXX",
+        "MessageAttributes": {}
+      }
+    }
+  ]
+}
