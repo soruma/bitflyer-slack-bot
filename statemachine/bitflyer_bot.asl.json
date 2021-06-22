@@ -5,6 +5,9 @@
     "Get BTC/JPY rate": {
       "Type": "Task",
       "Resource": "${BitflyerTickerFunctionArn}",
+      "Parameters": {
+        "ProductCode": "BTC_JPY"
+      },
       "Next": "SNS Publish"
     },
     "SNS Publish": {
