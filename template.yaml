@@ -21,6 +21,17 @@ Resources:
       DefinitionSubstitutions:
         BitflyerTickerFunctionArn: !GetAtt BitflyerTickerFunction.Arn
         SNSTopicArn: !Ref SNSTopic
+      Events:
+        EveryMorningSchedule:
+          Type: Schedule
+          Properties:
+            Description: Schedule to run the bitflyer bot state machine every morning
+            Schedule: "cron(0 0 * * ? *)"
+        EveryEveningSchedule:
+          Type: Schedule
+          Properties:
+            Description: Schedule to run the bitflyer bot state machine every evening
+            Schedule: "cron(0 9 * * ? *)"
       Policies:
         - LambdaInvokePolicy:
             FunctionName: !Ref BitflyerTickerFunction
