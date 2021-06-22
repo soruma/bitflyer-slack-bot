@@ -4,7 +4,7 @@ require 'bitflyer'
 
 module BitflyerTickers
   class BitflyerError < StandardError
-    def initialize(msg='Bitflyer error')
+    def initialize(msg = 'Bitflyer error')
       super
     end
   end
@@ -32,7 +32,7 @@ module BitflyerTickers
       public_client = Bitflyer.http_public_client
       product_code_per_ltps = product_codes.map do |product_code|
         result = public_client.ticker(product_code: product_code)
-        raise BitflyerError.new(result['error_message']) unless result.key?('state')
+        raise BitflyerError, result['error_message'] unless result.key?('state')
 
         "#{product_code}: #{result['ltp']}"
       end

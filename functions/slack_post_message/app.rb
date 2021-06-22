@@ -14,7 +14,7 @@ module SlackPostMessage
         statusCode: 200,
         body: App.new(event, context).call
       }
-    rescue => e
+    rescue StandardError => e
       {
         statusCode: 500,
         body: e.message
