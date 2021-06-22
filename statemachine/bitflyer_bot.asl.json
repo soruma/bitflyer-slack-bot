@@ -4,9 +4,9 @@
   "States": {
     "Get BTC/JPY rate": {
       "Type": "Task",
-      "Resource": "${BitflyerTickerFunctionArn}",
+      "Resource": "${BitflyerTickersFunctionArn}",
       "Parameters": {
-        "ProductCode": "BTC_JPY"
+        "ProductCodes": [ "BTC_JPY", "ETH_JPY" ]
       },
       "Next": "SNS Publish"
     },
