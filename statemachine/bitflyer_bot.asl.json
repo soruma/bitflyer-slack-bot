@@ -14,9 +14,7 @@
       "Type": "Task",
       "Resource": "arn:aws:states:::sns:publish",
       "Parameters": {
-        "Message": {
-          "Input.$": "$"
-        },
+        "Message.$": "$",
         "TopicArn": "${SNSTopicArn}"
       },
       "End": true

@@ -1,0 +1,109 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.bitflyer.jp/v1/ticker?product_code=BTC_JPY
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '365'
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      X-Ratelimit-Period:
+      - '300'
+      X-Ratelimit-Remaining:
+      - '499'
+      X-Ratelimit-Reset:
+      - '1624462372'
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - sameorigin
+      Content-Security-Policy:
+      - 'default-src http: https: ws: wss: data: ''unsafe-inline'' ''unsafe-eval'';
+        img-src https: data: blob: ''self'''
+      Strict-Transport-Security:
+      - max-age=31536000
+      Date:
+      - Wed, 23 Jun 2021 15:27:52 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"product_code":"BTC_JPY","state":"RUNNING","timestamp":"2021-06-23T15:27:52.247","tick_id":37438962,"best_bid":3727843.0,"best_ask":3729463.0,"best_bid_size":0.02,"best_ask_size":0.198,"total_bid_depth":790.38285117,"total_ask_depth":718.71669866,"market_bid_size":0.0,"market_ask_size":0.0,"ltp":3727840.0,"volume":24972.4985488,"volume_by_product":9273.88237992}'
+  recorded_at: Wed, 23 Jun 2021 15:27:52 GMT
+- request:
+    method: get
+    uri: https://api.bitflyer.jp/v1/ticker?product_code=ETH_JPY
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.4.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '363'
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      X-Ratelimit-Period:
+      - '300'
+      X-Ratelimit-Remaining:
+      - '498'
+      X-Ratelimit-Reset:
+      - '1624462372'
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - sameorigin
+      Content-Security-Policy:
+      - 'default-src http: https: ws: wss: data: ''unsafe-inline'' ''unsafe-eval'';
+        img-src https: data: blob: ''self'''
+      Strict-Transport-Security:
+      - max-age=31536000
+      Date:
+      - Wed, 23 Jun 2021 15:27:52 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"product_code":"ETH_JPY","state":"RUNNING","timestamp":"2021-06-23T15:27:52.873","tick_id":23414299,"best_bid":219425.0,"best_ask":219518.0,"best_bid_size":6.99,"best_ask_size":0.2688,"total_bid_depth":2972.5364964,"total_ask_depth":3962.1008694,"market_bid_size":0.0,"market_ask_size":0.0,"ltp":219425.0,"volume":35828.6795975,"volume_by_product":35828.6795975}'
+  recorded_at: Wed, 23 Jun 2021 15:27:52 GMT
+recorded_with: VCR 6.0.0
