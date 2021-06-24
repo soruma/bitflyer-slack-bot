@@ -1,8 +1,8 @@
 {
   "Comment": "This is your state machine",
-  "StartAt": "Get BTC/JPY rate",
+  "StartAt": "Get cryptocurrency rate",
   "States": {
-    "Get BTC/JPY rate": {
+    "Get cryptocurrency rate": {
       "Type": "Task",
       "Resource": "${BitflyerTickersFunctionArn}",
       "Parameters": {
