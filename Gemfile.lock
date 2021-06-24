@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
@@ -58,6 +59,9 @@ DEPENDENCIES
   rubocop-rspec
   vcr
   webmock
+
+RUBY VERSION
+   ruby 2.7.3p183
 
 BUNDLED WITH
    2.1.4
