@@ -1,0 +1,79 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - integrate
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Extract branch name
+        id: extract_branch
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+
+      - name: Set environment
+        id: set-env
+        env:
+          CURRENT_BRANCH: ${{ steps.extract_branch.outputs.branch }}
+        run: |
+          if [ $CURRENT_BRANCH = main ]; then
+            echo '::set-output name=ENVIRONMENT::production'
+          else
+            echo '::set-output name=ENVIRONMENT::integrate'
+          fi
+
+      - uses: chrnorm/deployment-action@v1.2.0
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          ref: '${{ env.GITHUB_REF }}'
+          environment: '${{ steps.set-env.outputs.ENVIRONMENT }}'
+
+      - uses: aws-actions/setup-sam@v1
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - run: sam build --use-container
+
+      - run: |
+          sam deploy \
+            --stack-name bitflyer-slack-bot \
+            --s3-bucket bitflyer-slack-bot \
+            --region us-east-1 \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides ParameterKey=SlackAPIKey,ParameterValue=${{ secrets.SLACK_API_TOKEN }} \
+                                  ParameterKey=SlackTargetChannel,ParameterValue=${{ secrets.SLACK_TARGET_CHANNEL }}
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          state: 'success'
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          state: 'failure'
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
