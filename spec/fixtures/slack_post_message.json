@@ -9,7 +9,7 @@
         "MessageId": "xxxx-xxxxx",
         "TopicArn": "arn:aws:sns:region:999:bitflyer-slack-bot-SNSTopic-XXXX",
         "Subject": "",
-        "Message": "{\"Input\":{\"statusCode\":200,\"message\":\"BTC_JPY: 3919359.0\\n\"}}",
+        "Message": "{\"statusCode\":200,\"message\":\"BTC_JPY: 3919359.0\"}",
         "Timestamp": "2021-06-20T07:38:26.845Z",
         "SignatureVersion": "1",
         "Signature": "dummy-Signature",

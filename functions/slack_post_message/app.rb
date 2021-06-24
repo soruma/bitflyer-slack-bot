@@ -12,12 +12,12 @@ module SlackPostMessage
     def self.lambda_handler(event:, context:)
       {
         statusCode: 200,
-        body: App.new(event, context).call
+        message: App.new(event, context).call
       }
     rescue StandardError => e
       {
         statusCode: 500,
-        body: e.message
+        message: e.message
       }
     end
 
@@ -32,12 +32,11 @@ module SlackPostMessage
     end
 
     def channel
-      "##{ENV['SLACK_TARGET_CHANNEL']}"
+      "##{ENV.fetch('SLACK_TARGET_CHANNEL', 'general')}"
     end
 
     def message
-      message = JSON.parse(@event['Records'][0]['Sns']['Message'])
-      message['Input']['message']
+      JSON.parse(@event['Records'][0]['Sns']['Message'])['message']
     end
   end
 end
