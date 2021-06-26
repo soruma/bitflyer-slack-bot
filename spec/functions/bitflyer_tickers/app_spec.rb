@@ -33,7 +33,7 @@ RSpec.describe BitflyerTickers::App do
 
   describe '#call' do
     subject(:call) do
-      described_class.new({ 'ProductCodes' => product_codes }, nil).call
+      described_class.new({ 'Input' => { 'ProductCodes' => product_codes } }, nil).call
     end
 
     context 'with exists product code' do
@@ -64,7 +64,7 @@ RSpec.describe BitflyerTickers::App do
   end
 
   describe '#product_codes' do
-    subject(:product_codes) { described_class.new({ 'ProductCodes' => %w[BTC_JPY] }, nil).product_codes }
+    subject(:product_codes) { described_class.new({ 'Input' => { 'ProductCodes' => %w[BTC_JPY] } }, nil).product_codes }
 
     it 'return ProductCodes' do
       expect(product_codes).to match %w[BTC_JPY]

@@ -12,6 +12,9 @@ Parameters:
   SlackTargetChannel:
     Type: String
     Default: sandbox
+  ProductCodesToBitflyerTicker:
+    Type: String
+    Default: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
 
 Resources:
   BitflyerBotStateMachine:
@@ -26,13 +29,13 @@ Resources:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every morning
-            Input: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
+            Input: !Ref ProductCodesToBitflyerTicker
             Schedule: "cron(0 0 * * ? *)"
         EveryEveningSchedule:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every evening
-            Input: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
+            Input: !Ref ProductCodesToBitflyerTicker
             Schedule: "cron(0 9 * * ? *)"
       Policies:
         - LambdaInvokePolicy:
