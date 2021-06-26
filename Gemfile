@@ -6,17 +6,22 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '~> 2.7.0'
 
+gem 'aws-sdk-dynamodb'
 gem 'bitflyer'
 gem 'slack-ruby-client'
 
-gem 'rspec'
+group :test do
+  gem 'rspec'
 
-gem 'rubocop'
-gem 'rubocop-rspec'
+  gem 'vcr'
+  gem 'webmock'
+end
 
-gem 'guard'
-gem 'guard-rspec'
-gem 'guard-rubocop'
+group :test, :development do
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 
-gem 'vcr'
-gem 'webmock'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+end
