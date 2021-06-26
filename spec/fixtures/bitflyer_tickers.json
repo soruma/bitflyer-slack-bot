@@ -1,3 +1,5 @@
 {
-  "ProductCodes": [ "BTC_JPY", "ETH_JPY" ]
+  "Input": {
+    "ProductCodes": [ "BTC_JPY", "ETH_JPY" ]
+  }
 }

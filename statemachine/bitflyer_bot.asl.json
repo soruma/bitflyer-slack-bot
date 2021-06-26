@@ -6,7 +6,7 @@
       "Type": "Task",
       "Resource": "${BitflyerTickersFunctionArn}",
       "Parameters": {
-        "ProductCodes": [ "BTC_JPY", "ETH_JPY" ]
+        "Input.$": "$"
       },
       "Next": "SNS Publish"
     },

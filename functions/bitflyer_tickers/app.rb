@@ -41,7 +41,7 @@ module BitflyerTickers
     end
 
     def product_codes
-      @event['ProductCodes']
+      @event['Input']['ProductCodes']
     end
   end
 end

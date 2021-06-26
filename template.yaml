@@ -26,11 +26,13 @@ Resources:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every morning
+            Input: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
             Schedule: "cron(0 0 * * ? *)"
         EveryEveningSchedule:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every evening
+            Input: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
             Schedule: "cron(0 9 * * ? *)"
       Policies:
         - LambdaInvokePolicy:
