@@ -9,9 +9,11 @@ Parameters:
   SlackAPIKey:
     Type: String
     Default: xoxb-dummy-api-key
+    NoEcho: true
   SlackTargetChannel:
     Type: String
     Default: sandbox
+    NoEcho: true
   ProductCodesToBitflyerTicker:
     Type: String
     Default: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
