@@ -66,6 +66,7 @@ Resources:
 
   LambdaPermission:
     Type: AWS::Lambda::Permission
+    DependsOn: SNSTopic
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !GetAtt SlackPostMessageFunction.Arn
