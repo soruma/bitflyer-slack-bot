@@ -55,8 +55,8 @@ jobs:
 
       - run: |
           sam deploy \
-            --stack-name bitflyer-slack-bot \
-            --s3-bucket bitflyer-slack-bot \
+            --stack-name bitflyer-slack-bot-${{ steps.set-env.outputs.ENVIRONMENT }} \
+            --s3-bucket bitflyer-slack-bot-${{ steps.set-env.outputs.ENVIRONMENT }} \
             --region us-east-1 \
             --capabilities CAPABILITY_IAM \
             --parameter-overrides ParameterKey=SlackAPIKey,ParameterValue=${{ secrets.SLACK_API_TOKEN }} \
