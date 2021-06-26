@@ -29,7 +29,6 @@ module GetCryptocurrencyPrice
 
     def call
       @logger.info("product code for which ticker was request: #{product_codes}")
-      public_client = Bitflyer.http_public_client
       product_code_per_ltps = product_codes.map do |product_code|
         result = public_client.ticker(product_code: product_code)
         raise BitflyerError, result['error_message'] unless result.key?('state')
@@ -42,6 +41,12 @@ module GetCryptocurrencyPrice
 
     def product_codes
       @event['Input']['ProductCodes']
+    end
+
+    private
+
+    def public_client
+      @public_client ||= Bitflyer.http_public_client
     end
   end
 end
