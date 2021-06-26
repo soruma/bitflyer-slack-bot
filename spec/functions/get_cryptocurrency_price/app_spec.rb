@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe BitflyerTickers::App do
+RSpec.describe GetCryptocurrencyPrice::App do
   describe '.lambda_handler' do
     subject(:lambda_handler) do
       described_class.lambda_handler({ event: 'event', context: 'context' })
@@ -46,7 +46,7 @@ RSpec.describe BitflyerTickers::App do
       end
 
       it 'return product codes and current prices' do
-        VCR.use_cassette 'functions/bitflyer_tickers/app/exists_product_code' do
+        VCR.use_cassette 'functions/get_cryptocurrency_price/app/exists_product_code' do
           expect(call).to eq message
         end
       end
@@ -56,8 +56,8 @@ RSpec.describe BitflyerTickers::App do
       let(:product_codes) { %w[UNDEFIND] }
 
       it do
-        VCR.use_cassette 'functions/bitflyer_tickers/app/not_exists_product_code' do
-          expect { call }.to raise_error(BitflyerTickers::BitflyerError, 'Invalid product')
+        VCR.use_cassette 'functions/get_cryptocurrency_price/app/not_exists_product_code' do
+          expect { call }.to raise_error(GetCryptocurrencyPrice::BitflyerError, 'Invalid product')
         end
       end
     end

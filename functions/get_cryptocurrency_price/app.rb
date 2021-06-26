@@ -2,7 +2,7 @@
 
 require 'bitflyer'
 
-module BitflyerTickers
+module GetCryptocurrencyPrice
   class BitflyerError < StandardError
     def initialize(msg = 'Bitflyer error')
       super

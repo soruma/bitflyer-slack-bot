@@ -14,7 +14,7 @@ Parameters:
     Type: String
     Default: sandbox
     NoEcho: true
-  ProductCodesToBitflyerTicker:
+  ProductCodesToGetCryptocurrencyPrice:
     Type: String
     Default: '{ "ProductCodes": [ "BTC_JPY", "ETH_JPY" ] }'
 
@@ -24,32 +24,32 @@ Resources:
     Properties:
       DefinitionUri: statemachine/bitflyer_bot.asl.json
       DefinitionSubstitutions:
-        BitflyerTickersFunctionArn: !GetAtt BitflyerTickersFunction.Arn
+        GetCryptocurrencyPriceFunctionArn: !GetAtt GetCryptocurrencyPriceFunction.Arn
         SNSTopicArn: !Ref SNSTopic
       Events:
         EveryMorningSchedule:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every morning
-            Input: !Ref ProductCodesToBitflyerTicker
+            Input: !Ref ProductCodesToGetCryptocurrencyPrice
             Schedule: "cron(0 0 * * ? *)"
         EveryEveningSchedule:
           Type: Schedule
           Properties:
             Description: Schedule to run the bitflyer bot state machine every evening
-            Input: !Ref ProductCodesToBitflyerTicker
+            Input: !Ref ProductCodesToGetCryptocurrencyPrice
             Schedule: "cron(0 9 * * ? *)"
       Policies:
         - LambdaInvokePolicy:
-            FunctionName: !Ref BitflyerTickersFunction
+            FunctionName: !Ref GetCryptocurrencyPriceFunction
         - SNSPublishMessagePolicy:
             TopicName: !GetAtt SNSTopic.TopicName
 
-  BitflyerTickersFunction:
+  GetCryptocurrencyPriceFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/bitflyer_tickers/
-      Handler: app.BitflyerTickers::App.lambda_handler
+      CodeUri: functions/get_cryptocurrency_price/
+      Handler: app.GetCryptocurrencyPrice::App.lambda_handler
       Runtime: ruby2.7
       Timeout: 50
 
