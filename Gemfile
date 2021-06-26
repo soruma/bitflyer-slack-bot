@@ -14,5 +14,9 @@ gem 'rspec'
 gem 'rubocop'
 gem 'rubocop-rspec'
 
+gem 'guard'
+gem 'guard-rspec'
+gem 'guard-rubocop'
+
 gem 'vcr'
 gem 'webmock'
