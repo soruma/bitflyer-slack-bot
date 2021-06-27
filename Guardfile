@@ -8,6 +8,8 @@ guard :rspec, cmd: 'rspec' do
 end
 
 guard :rubocop, all_on_start: false do
-  watch(/.+\.rb$/)
+  watch(%r{^bin/.+\.rb$})
+  watch(%r{^functions/.+\.rb$})
+  watch(%r{^spec/.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
 end
